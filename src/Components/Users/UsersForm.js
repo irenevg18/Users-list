@@ -3,27 +3,32 @@ import "./UsersForm.css";
 import Button from "../UI/Button";
 import Card from "../UI/Card";
 
-function UsersForm() {
-  const [user, setUser] = useState({ name: "", age: 0 });
+function UsersForm(props) {
+  const [newUser, setNewUser] = useState({ name: "", age: "" });
 
   const addUserHandler = (event) => {
     event.preventDefault();
+    if (event.target[0].value.trim().length === 0 || event.target[1].value.trim().length === 0) {
+      props.onShowError(true);
+      return;
+    }
+    if (+newUser.age < 1) {
+      props.onShowError(true);
+      return;
+    }
     event.target.reset();
-    console.log(user);
+    props.onAddUser(newUser);
+    props.onShowError(false);
+    console.log(newUser);
   };
 
   const nameHandler = (event) => {
-   setUser({name: event.target.value})
-
-  };  
-  
-  const ageHandler = (event) => {
-    setUser({...user, age: event.target.value})
-    
+    setNewUser({ name: event.target.value });
   };
 
-
-
+  const ageHandler = (event) => {
+    setNewUser({ ...newUser, age: event.target.value });
+  };
 
   return (
     <Card>
@@ -32,16 +37,23 @@ function UsersForm() {
           <label htmlFor="username">Username</label>
           <input
             type="text"
-            id="username"
-            placeholder="Type the username"
+            id="name"
+            placeholder="Type your username"
             onChange={nameHandler}
+            // value={newUser.name}
           />
         </div>
         <div>
           <label htmlFor="age">Age</label>
-          <input type="number" id="age" placeholder="Type yous age in years" onChange={ageHandler}/>
+          <input
+            type="number"
+            id="age"
+            placeholder="Your age in years"
+            onChange={ageHandler}
+            // value={newUser.age}
+          />
         </div>
-        <Button onClick={addUserHandler} />
+        <Button buttonText="Add user" type="submit" />
       </form>
     </Card>
   );

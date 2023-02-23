@@ -1,8 +1,11 @@
 import React from "react";
 
 function Button(props){
+
+    const {type, onClick, buttonText} = props 
+
     return(
-        <button type="submit" onClick={props.addUserHandler}>Add User</button>
+        <button type={type} onClick={onClick}>{buttonText}</button>
     )
 }
 

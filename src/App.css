@@ -1,7 +1,14 @@
 body {
     background-color: rgb(5, 10, 16);
+    padding: 4rem 8rem 4rem 8rem;
+   
 }
 
 h1 {
+    color: azure;
+    margin-left: 2rem;
+}
+
+#no-users {
     color: azure;
 }
